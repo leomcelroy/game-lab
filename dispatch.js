@@ -3,6 +3,7 @@ import { view } from "./view.js";
 import { init } from "./init.js";
 import { Engine } from "./Engine.js";
 import { Muse } from "https://muse.hackclub.com/exports.js";
+import uiSounds from "./assets/ui-sounds.js";
 
 function copy(str) {
   const inp = document.createElement("input");
@@ -100,6 +101,9 @@ const ACTIONS = {
   SHARE_TYPE({ type }, state) {
     state.shareType = type;
     dispatch("RENDER");
+  },
+  SOUND(arg, state) {
+    uiSounds[arg]()
   },
   GET_SAVE_STATE(args, state) {
     const prog = state.codemirror.view.state.doc.toString();
