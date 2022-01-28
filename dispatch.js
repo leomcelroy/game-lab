@@ -118,7 +118,11 @@ const ACTIONS = {
         state.lastSaved.prog === saveStateObj.prog
       ) {
         copy(state.lastSaved.link);
-        showShared();
+
+        setTimeout(() => {
+          showShared();
+          dispatch("SOUND", "yes")
+        }, 500)
         return;
       }
 
@@ -138,6 +142,7 @@ const ACTIONS = {
 
         copy(res.fields["Link"]);
         showShared();
+        dispatch("SOUND", "yes")
         state.lastSaved.name = saveStateObj.name;
         state.lastSaved.prog = saveStateObj.prog;
         state.lastSaved.link = res.fields["Link"];
@@ -288,6 +293,10 @@ function downloadText(filename, text) {
   var link = document.createElement("a"); // Or maybe get it from the current document
   link.href = URL.createObjectURL(blob);
   link.download = `${filename}`;
-  link.click();
-  URL.revokeObjectURL(link);
+
+  setTimeout(() => {
+    link.click();
+    URL.revokeObjectURL(link);
+    dispatch("SOUND", "yes")
+  }, 500) // give the user a slight delay to ensure 'clicking download' feels like a seperate action from the file downloading
 }

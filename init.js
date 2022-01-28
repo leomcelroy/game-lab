@@ -1,9 +1,12 @@
 import { events } from "./events.js";
 import { defaultProg } from "./defaultProg.js";
 import { createPixelEditor } from "./pixel-editor/pixel-editor.js";
+import { dispatch } from "./dispatch.js";
 
 export function init(state) {
   const url = new URL(window.location.href);
+
+  dispatch("SOUND", "bootup")
 
   const search = window.location.search;
   const file = new URLSearchParams(search).get("file");
